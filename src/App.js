@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import default CSS for react-confirm-alert
 import DrawingCanvas from './DrawingCanvas';
-
+import { correctPassword } from './password';
 function Alert({ message, onClose }) {
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-gray-800 bg-opacity-50">
@@ -35,8 +35,6 @@ function App() {
   const [showPopup, setShowPopup] = useState(true);
   const [alertMessage, setAlertMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-
-  const correctPassword = '12345'; // Hardcoded password
 
   useEffect(() => {
     const isLoggedIn = sessionStorage.getItem('isLoggedIn');
@@ -91,6 +89,9 @@ function App() {
         </div>
       )}
       {!showPopup && <DrawingCanvas />}
+      <div style={{ position: 'fixed', bottom: '20px', width: '100%', textAlign: 'center', color: 'white' }}>
+        Made with ❤️ by msb
+      </div>
     </div>
   );
 }
