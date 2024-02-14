@@ -20,10 +20,21 @@ function Alert({ message, onClose }) {
   );
 }
 
+function SuccessMessage({ message }) {
+  return (
+    <div className="fixed inset-0 flex justify-center items-center bg-gray-800 bg-opacity-50 ">
+      <div className="bg-gradient-to-r from-blue-500 to-pink-500 p-8  shadow-md  rounded-3xl w-9/12 md:w-3/5">
+        <h2 className="text-4xl font-bold text-white mb-4">{message}</h2>
+      </div>
+    </div>
+  );
+}
+
 function App() {
   const [password, setPassword] = useState('');
   const [showPopup, setShowPopup] = useState(true);
   const [alertMessage, setAlertMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const correctPassword = '12345'; // Hardcoded password
 
@@ -37,8 +48,12 @@ function App() {
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
     if (password === correctPassword) {
-      sessionStorage.setItem('isLoggedIn', 'true');
+      // sessionStorage.setItem('isLoggedIn', 'true');
       setShowPopup(false);
+      setSuccessMessage('You can start drawing on your canvas. Press clear to clear the canvas.');
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 2000); // Close success message after 2 seconds
     } else {
       setPassword('');
       setAlertMessage('Incorrect password');
@@ -51,10 +66,11 @@ function App() {
 
   return (
     <div className="bg-[url('./assets/doodlebg.jpg')] bg-cover min-h-screen flex justify-center items-center">
+      {successMessage && <SuccessMessage message={successMessage} />}
       {showPopup && alertMessage && <Alert message={alertMessage} onClose={closeAlert} />}
       {showPopup && !alertMessage && (
         <div className="fixed inset-0 flex justify-center items-center bg-gray-800 bg-opacity-50">
-          <div className="bg-white p-4 sm:p-8 rounded-lg shadow-lg w-full sm:max-w-xs">
+          <div className="bg-white p-4 sm:p-8 rounded-lg shadow-lg w-9/12 md:w-1/4">
             <h2 className="text-2xl font-semibold mb-4">Enter Password</h2>
             <form onSubmit={handlePasswordSubmit}>
               <input

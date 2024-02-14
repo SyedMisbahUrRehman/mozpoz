@@ -70,7 +70,7 @@ function DrawingCanvas() {
     <div className="relative overflow-hidden">
       <canvas
         ref={canvasRef}
-        className="border border-gray-300"
+        className=""
         style={{ width: '100%', height: '100%' }}
       />
       <button
