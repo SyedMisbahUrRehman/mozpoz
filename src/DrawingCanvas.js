@@ -10,6 +10,8 @@ function DrawingCanvas() {
     if (canvasRef.current) {
       fabricCanvasRef.current = new fabric.Canvas(canvasRef.current, {
         isDrawingMode: true,
+        width: window.innerWidth, // Set initial canvas width
+        height: window.innerHeight, // Set initial canvas height
       });
     }
 
@@ -30,10 +32,51 @@ function DrawingCanvas() {
     }
   };
 
+  // Prevent scrolling on the canvas element
+  const preventScroll = (e) => {
+    e.preventDefault();
+  };
+
+  useEffect(() => {
+    // Add event listener to prevent scrolling on the canvas
+    const canvas = canvasRef.current;
+    canvas.addEventListener('touchmove', preventScroll, { passive: false });
+    canvas.addEventListener('mousewheel', preventScroll, { passive: false });
+
+    return () => {
+      // Remove event listener on component unmount
+      canvas.removeEventListener('touchmove', preventScroll);
+      canvas.removeEventListener('mousewheel', preventScroll);
+    };
+  }, []);
+
+  // Dynamically update canvas dimensions on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      const canvas = fabricCanvasRef.current;
+      if (canvas) {
+        canvas.setDimensions({ width: window.innerWidth, height: window.innerHeight });
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
-    <div className="relative">
-      <canvas ref={canvasRef} width={window.innerWidth} height={window.innerHeight} className="border border-gray-300" />
-      <button onClick={handleClearCanvas} className="absolute top-4 right-4 px-4 py-2 bg-white text-gray-700 border border-gray-300 rounded-md shadow-sm cursor-pointer">
+    <div className="relative overflow-hidden">
+      <canvas
+        ref={canvasRef}
+        className="border border-gray-300"
+        style={{ width: '100%', height: '100%' }}
+      />
+      <button
+        onClick={handleClearCanvas}
+        className="absolute top-4 right-4 px-5 py-2 bg-slate-900 text-white rounded-md shadow-sm cursor-pointer"
+      >
         Clear
       </button>
     </div>
