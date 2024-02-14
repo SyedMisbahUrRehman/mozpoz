@@ -16,6 +16,7 @@ function App() {
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
     if (password === correctPassword) {
+      sessionStorage.setItem('isLoggedIn', 'true');
       setShowPopup(false);
     } else {
       setPassword('');
