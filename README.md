@@ -15,7 +15,7 @@ Mozpoz is a fun web application that allows users to interact with a drawing can
 - react-confirm-alert: Library for creating customizable confirmation dialogs in React applications.
 
 ## Installation
-1. Clone the repository: `git clone [<repository-url>](https://github.com/SyedMisbahUrRehman/mozpoz)`
+1. Clone the repository: `git clone https://github.com/SyedMisbahUrRehman/mozpoz`
 2. Navigate to the project directory: `cd mozpoz`
 3. Install dependencies: `npm install`
 
