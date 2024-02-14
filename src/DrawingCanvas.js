@@ -1,9 +1,10 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { fabric } from 'fabric';
 
 function DrawingCanvas() {
   const canvasRef = useRef(null); // Reference to the HTML canvas element
   const fabricCanvasRef = useRef(null); // Reference to the fabric.Canvas instance
+  const [penWidth, setPenWidth] = useState(2); // State to track pen thickness
 
   useEffect(() => {
     // Create the fabric.Canvas instance only after the canvas element is available
@@ -12,6 +13,7 @@ function DrawingCanvas() {
         isDrawingMode: true,
         width: window.innerWidth, // Set initial canvas width
         height: window.innerHeight, // Set initial canvas height
+        freeDrawingBrush: new fabric['PencilBrush'](fabricCanvasRef.current), // Set default brush to PencilBrush
       });
     }
 
@@ -29,6 +31,13 @@ function DrawingCanvas() {
       fabricCanvasRef.current.clear();
     } else {
       console.warn('fabric.Canvas instance not yet available. Cannot clear canvas.');
+    }
+  };
+
+  const handleChangePenWidth = (width) => {
+    setPenWidth(width);
+    if (fabricCanvasRef.current) {
+      fabricCanvasRef.current.freeDrawingBrush.width = width;
     }
   };
 
@@ -73,9 +82,29 @@ function DrawingCanvas() {
         className=""
         style={{ width: '100%', height: '100%' }}
       />
+      <div className="absolute top-4 left-4 flex space-x-2">
+        <button
+          onClick={() => handleChangePenWidth(2)}
+          className={`px-2 py-1 rounded-md ${penWidth === 2 ? 'bg-gray-400' : 'bg-gray-200'}`}
+        >
+          Thin
+        </button>
+        <button
+          onClick={() => handleChangePenWidth(5)}
+          className={`px-2 py-1 rounded-md ${penWidth === 5 ? 'bg-gray-400' : 'bg-gray-200'}`}
+        >
+          Medium
+        </button>
+        <button
+          onClick={() => handleChangePenWidth(10)}
+          className={`px-2 py-1 rounded-md ${penWidth === 10 ? 'bg-gray-400' : 'bg-gray-200'}`}
+        >
+          Thick
+        </button>
+      </div>
       <button
         onClick={handleClearCanvas}
-        className="absolute top-4 right-4 px-5 py-2 bg-slate-900 text-white rounded-md shadow-sm cursor-pointer"
+        className="absolute top-4 right-4 px-3 py-1 bg-slate-900 text-white rounded-md shadow-sm cursor-pointer"
       >
         Clear
       </button>
