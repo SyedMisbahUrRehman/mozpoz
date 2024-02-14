@@ -41,6 +41,40 @@ function DrawingCanvas() {
     }
   };
 
+  const handleDownloadCanvas = () => {
+    if (!fabricCanvasRef.current) {
+      console.warn('fabric.Canvas instance not yet available. Cannot download canvas.');
+      return;
+    }
+
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = fabricCanvasRef.current.width;
+    tempCanvas.height = fabricCanvasRef.current.height;
+    const tempCtx = tempCanvas.getContext('2d');
+
+    // Set white background
+    tempCtx.fillStyle = '#ffffff'; // White color
+    tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+
+    // Draw main canvas contents onto temp canvas
+    const objects = fabricCanvasRef.current.getObjects();
+    objects.forEach(object => {
+      object.setCoords();
+      object.render(tempCtx);
+    });
+
+    // Convert temp canvas to data URL
+    const dataURL = tempCanvas.toDataURL('image/png');
+
+    // Create a link element to trigger download
+    const link = document.createElement('a');
+    link.href = dataURL;
+    link.download = 'canvas.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   // Prevent scrolling on the canvas element
   const preventScroll = (e) => {
     e.preventDefault();
@@ -79,8 +113,7 @@ function DrawingCanvas() {
     <div className="relative overflow-hidden">
       <canvas
         ref={canvasRef}
-        className=""
-        style={{ width: '100%', height: '100%' }}
+        className="w-full h-full cursor-pointer cursor-pen"
       />
       <div className="absolute top-4 left-4 flex space-x-2">
         <button
@@ -100,6 +133,12 @@ function DrawingCanvas() {
           className={`px-2 py-1 rounded-md ${penWidth === 10 ? 'bg-gray-400' : 'bg-gray-200'}`}
         >
           Thick
+        </button>
+        <button
+          onClick={handleDownloadCanvas}
+          className="px-2 py-1 bg-slate-900 text-white rounded-md shadow-md cursor-pointer"
+        >
+          Download
         </button>
       </div>
       <button
