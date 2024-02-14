@@ -113,9 +113,9 @@ function DrawingCanvas() {
     <div className="relative overflow-hidden">
       <canvas
         ref={canvasRef}
-        className="w-full h-full cursor-pointer cursor-pen"
+        className="w-full h-full cursor-pointer "
       />
-      <div className="absolute top-4 left-4 flex space-x-2">
+      <div className="absolute top-4 left-4 flex flex-col space-y-2">
         <button
           onClick={() => handleChangePenWidth(2)}
           className={`px-2 py-1 rounded-md ${penWidth === 2 ? 'bg-gray-400' : 'bg-gray-200'}`}
