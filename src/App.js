@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import default CSS for react-confirm-alert
 import DrawingCanvas from './DrawingCanvas';
 import { correctPassword } from './password';
