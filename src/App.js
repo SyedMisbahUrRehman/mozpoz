@@ -46,7 +46,7 @@ function App() {
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
     if (password === correctPassword) {
-      // sessionStorage.setItem('isLoggedIn', 'true');
+      sessionStorage.setItem('isLoggedIn', 'true');
       setShowPopup(false);
       setSuccessMessage('You can start drawing on your canvas. Press clear to clear the canvas.');
       setTimeout(() => {
