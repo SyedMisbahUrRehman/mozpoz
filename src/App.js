@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import default CSS for react-confirm-alert
 import DrawingCanvas from './DrawingCanvas';
 import { correctPassword } from './password';
@@ -6,7 +6,7 @@ function Alert({ message, onClose }) {
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-gray-800 bg-opacity-50">
       <div className="bg-white p-4 sm:p-8 rounded-lg shadow-lg w-full sm:max-w-xs">
-        <h2 className="text-2xl font-semibold mb-4">Alert</h2>
+        <h2 className="text-2xl font-semibold mb-4">Woch Out</h2>
         <p className="mb-4">{message}</p>
         <button
           onClick={onClose}
@@ -35,17 +35,17 @@ function App() {
   const [alertMessage, setAlertMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
-  useEffect(() => {
-    const isLoggedIn = sessionStorage.getItem('isLoggedIn');
-    if (isLoggedIn === 'true') {
-      setShowPopup(false);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+  //   if (isLoggedIn === 'true') {
+  //     setShowPopup(false);
+  //   }
+  // }, []);
 
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
     if (password === correctPassword) {
-      sessionStorage.setItem('isLoggedIn', 'true');
+      // sessionStorage.setItem('isLoggedIn', 'true');
       setShowPopup(false);
       setSuccessMessage('You can start drawing on your canvas. Press clear to clear the canvas.');
       setTimeout(() => {
@@ -53,7 +53,7 @@ function App() {
       }, 2000); // Close success message after 2 seconds
     } else {
       setPassword('');
-      setAlertMessage('Incorrect password');
+      setAlertMessage('Incorrect password. Please try again.');
     }
   };
 
@@ -62,7 +62,7 @@ function App() {
   };
 
   return (
-    <div className="bg-[url('./assets/doodlebg.jpg')] bg-cover min-h-screen flex justify-center items-center">
+    <div className="bg-[url('../public/assets/bgmozpoz1.jpg')] bg-cover min-h-screen flex justify-center items-center">
       {successMessage && <SuccessMessage message={successMessage} />}
       {showPopup && alertMessage && <Alert message={alertMessage} onClose={closeAlert} />}
       {showPopup && !alertMessage && (
