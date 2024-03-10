@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import default CSS for react-confirm-alert
 import DrawingCanvas from './DrawingCanvas';
-import { correctPassword } from './password';
+// import { correctPassword } from './password';
 function Alert({ message, onClose }) {
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-gray-800 bg-opacity-50">
@@ -44,7 +44,7 @@ function App() {
 
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
-    if (password === correctPassword) {
+    if (password === 'msb') {
       // sessionStorage.setItem('isLoggedIn', 'true');
       setShowPopup(false);
       setSuccessMessage('You can start drawing on your canvas. Press clear to clear the canvas.');
@@ -88,9 +88,10 @@ function App() {
         </div>
       )}
       {!showPopup && <DrawingCanvas />}
-      <div style={{ position: 'fixed', bottom: '20px', width: '100%', textAlign: 'center', color: 'white' }}>
+      <div className='fixed bottom-4 left-0 right-0 text-center text-white w-full opacity-90 hover:underline'>
         Made with ❤️ by msb
       </div>
+
     </div>
   );
 }
