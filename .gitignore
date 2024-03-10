@@ -10,7 +10,6 @@
 
 # production
 /build
-passwords.js
 # misc
 .DS_Store
 .env.local

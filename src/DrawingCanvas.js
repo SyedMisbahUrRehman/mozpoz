@@ -118,19 +118,19 @@ function DrawingCanvas() {
       <div className="absolute top-4 left-4 flex flex-col space-y-2">
         <button
           onClick={() => handleChangePenWidth(2)}
-          className={`px-2 py-1 rounded-md ${penWidth === 2 ? 'bg-gray-400' : 'bg-gray-200'}`}
+          className={`px-2 py-1 rounded-md ${penWidth === 2 ? 'bg-blue-200' : 'bg-gray-200'}`}
         >
           Thin
         </button>
         <button
           onClick={() => handleChangePenWidth(5)}
-          className={`px-2 py-1 rounded-md ${penWidth === 5 ? 'bg-gray-400' : 'bg-gray-200'}`}
+          className={`px-2 py-1 rounded-md ${penWidth === 5 ? 'bg-blue-200' : 'bg-gray-200'}`}
         >
           Medium
         </button>
         <button
           onClick={() => handleChangePenWidth(10)}
-          className={`px-2 py-1 rounded-md ${penWidth === 10 ? 'bg-gray-400' : 'bg-gray-200'}`}
+          className={`px-2 py-1 rounded-md ${penWidth === 10 ? 'bg-blue-200' : 'bg-gray-200'}`}
         >
           Thick
         </button>
